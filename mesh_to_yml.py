@@ -108,5 +108,5 @@ if __name__ == '__main__':
 
     mesh = build_yaml('MESH', hierarchy)
     with open('mesh.yml', 'wt') as f:
-        yaml.dump(mesh, f)
+        yaml.dump(mesh, f, default_flow_style=False)
 
