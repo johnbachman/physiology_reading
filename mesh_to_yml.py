@@ -1,8 +1,8 @@
 import logging
 from os.path import join
+from copy import deepcopy
 from collections import defaultdict
 import yaml
-
 
 logger = logging.getLogger('mesh_to_yml')
 
@@ -107,6 +107,7 @@ if __name__ == '__main__':
     root_hierarchy = {'MESH': hierarchy}
 
     mesh = build_yaml('MESH', hierarchy)
+    yaml.Dumper.ignore_aliases = lambda *args : True
     with open('mesh.yml', 'wt') as f:
         yaml.dump(mesh, f, default_flow_style=False)
 
