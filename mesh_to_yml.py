@@ -3,6 +3,8 @@ from os.path import join
 from copy import deepcopy
 from collections import defaultdict
 import yaml
+from io import StringIO
+#from ruamel.yaml import YAML
 
 logger = logging.getLogger('mesh_to_yml')
 
@@ -93,7 +95,12 @@ def build_hierarchy(desc):
 def build_yaml(key, values):
     subdict = {}
     if key == 'records':
-        node = [{'OntologyNode': v} for v in values]
+        assert len(values) == 1
+        node_dict = deepcopy(values[0])
+        node_dict.update({'OntologyNode': None})
+        node = [node_dict]
+        #    node.update(deepcopy(v))
+        #    #= [{'OntologyNode':  deepcopy(v)} for v in values]
     else:
         entries = []
         for k, v in values.items():
@@ -108,6 +115,10 @@ if __name__ == '__main__':
 
     mesh = build_yaml('MESH', hierarchy)
     yaml.Dumper.ignore_aliases = lambda *args : True
+    yaml_io = StringIO()
+    #with open('mesh.yml', 'wt') as f:
+    yaml.dump(mesh, yaml_io, default_flow_style=False)
+    yaml_str = yaml_io.getvalue()
+    yaml_no_null = yaml_str.replace('OntologyNode: null', 'OntologyNode:')
     with open('mesh.yml', 'wt') as f:
-        yaml.dump(mesh, f, default_flow_style=False)
-
+        f.write(yaml_no_null)

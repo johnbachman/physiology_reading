@@ -3,7 +3,7 @@
 ## MESH data
 
 MESH data downloaded on 6/20/2018 from
-NCBI [here.](ftp://nlmpubs.nlm.nih.gov/online/mesh/MESH_FILES/asciimesh/)
+NCBI [here.](https://www.nlm.nih.gov/mesh/download_mesh.html)
 
 Files:
 * d2018.bin. Descriptors a.k.a. subject headings. A given descriptor may
